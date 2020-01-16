@@ -29,12 +29,8 @@ func (g *Generator) addDirectory(path string, info os.FileInfo) error {
 		return errors.New("Already Same path exists")
 	}
 
-	var s syscall.Stat_t
-	syscall.Stat(path, &s)
-
 	d := DirInfo{
 		Path:  rpath,
-		CTime: time.Unix(s.Ctimespec.Sec, 0),
 		MTime: info.ModTime(),
 		Mode:  info.Mode(),
 	}
@@ -122,8 +118,4 @@ func (g *Generator) Add(d string) error {
 
 func (g *Generator) Write(w io.Writer) error {
 	return nil
-}
-
-func (g *Generator) MakeFileList(s string) {
-
 }
