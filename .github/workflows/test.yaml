@@ -5,7 +5,7 @@ jobs:
     strategy:
       matrix:
         go-version: [1.12.x, 1.13.x]
-        platform: [ubuntu-latest, macos-latest, windows-latest]
+        platform: [ubuntu-latest]
     runs-on: ${{ matrix.platform }}
     steps:
     - name: Install Go
@@ -14,15 +14,7 @@ jobs:
         go-version: ${{ matrix.go-version }}
     - name: Checkout code
       uses: actions/checkout@v1
-    - name: Cache mod
-      uses: actions/cache@v1
-      with:
-        path: ~/go/pkg/mod
-        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-        restore-keys: |
-            ${{ runner.os }}-go-
     - name: Download mod
-      if: steps.cache.outputs.cache-hit != 'true'
       run: go mod download
     - name: Test
       run: go test ./... -v
