@@ -37,11 +37,12 @@ func generate(s []string) {
 	for _, d := range s {
 		g.Add(d)
 	}
+	g.Write(os.Stdout)
 }
 
 func main() {
-	getExecPath()
-	getCurrentPath()
+	//getExecPath()
+	//getCurrentPath()
 	parser := flags.NewParser(&opts, flags.Default)
 	if _, err := parser.Parse(); err != nil {
 		return
